@@ -1,0 +1,121 @@
+/* Церквокультура — усі стилі сайту. Кольори — змінні в :root. */
+:root {
+  --bg: #141414;
+  --bg-deep: #0c0c0c;
+  --card: #1f1f1f;
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, .8);
+  --dim: rgba(255, 255, 255, .6);
+  --orange: #f26b38;
+  --green: #3d5c45;
+  --cream: #fdfbe9;
+  --wrap: 1280px;
+  --gutter: 20px;
+}
+@media (min-width: 768px) { :root { --gutter: 80px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Manrope", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-weight: 800; letter-spacing: -.01em; line-height: 1.15; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+.skip { position: absolute; left: -9999px; top: 8px; background: var(--orange); color: #fff; padding: 8px 14px; z-index: 10; }
+.skip:focus { left: 8px; }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+
+/* Шапка */
+.site-header { position: absolute; inset: 0 0 auto 0; z-index: 5; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 20px; padding-bottom: 20px; }
+.logo { font-weight: 800; text-transform: uppercase; text-decoration: none; letter-spacing: .02em; font-size: 18px; }
+.logo .o, h1 .o { color: var(--orange); }
+.header-link { font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: none; }
+.header-link:hover { color: #fff; }
+
+/* Обкладинка */
+.hero { position: relative; overflow: hidden; }
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% center; opacity: .85; }
+@media (min-width: 768px) { .hero-img { object-position: center; } }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--bg), rgba(20, 20, 20, .4) 50%, transparent); }
+.hero-inner { position: relative; z-index: 1; padding-top: 160px; padding-bottom: 56px; }
+@media (min-width: 768px) { .hero-inner { padding-top: 256px; padding-bottom: 80px; } }
+.hero h1 { margin-top: 16px; font-size: clamp(30px, 9vw, 72px); text-transform: uppercase; line-height: 1; overflow-wrap: anywhere; }
+.hero-sub { margin-top: 24px; max-width: 42rem; font-size: clamp(18px, 2.2vw, 20px); color: rgba(255, 255, 255, .85); }
+
+.tag { display: inline-block; padding: 8px 16px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .15em; background: var(--orange); transform: rotate(-1deg); }
+.label { display: inline-block; align-self: flex-start; padding: 10px 18px; font-size: clamp(20px, 2.6vw, 28px); font-weight: 800; text-transform: uppercase; background: var(--green); }
+.label--orange { background: var(--orange); transform: rotate(-1deg); }
+.label--sm { font-size: clamp(18px, 2vw, 22px); padding: 8px 16px; }
+
+.btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 32px; padding: 12px 24px; border-radius: 999px; background: var(--orange); color: #fff; font-weight: 700; text-decoration: none; transition: background-color .25s, color .25s; }
+.btn:hover { background: #fff; color: var(--bg); }
+
+.u { color: #fff; text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.u--green { text-decoration-color: var(--green); }
+
+/* Секції */
+.section { padding: 64px 0; }
+@media (min-width: 768px) { .section { padding: 96px 0; } }
+.section--tight { padding-top: 0; }
+.section--deep { background: var(--bg-deep); }
+
+.about { display: grid; gap: 40px; }
+@media (min-width: 1024px) { .about { grid-template-columns: 5fr 7fr; gap: 64px; } }
+.about-text { display: grid; gap: 20px; font-size: 18px; color: var(--muted); }
+.topics { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 8px; }
+.topics li { padding: 8px 16px; background: var(--cream); color: var(--bg); font-weight: 600; font-size: 16px; }
+
+.cards { display: grid; gap: 24px; }
+@media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+.card { display: flex; flex-direction: column; gap: 20px; padding: 28px; border-radius: 24px; background: var(--card); color: var(--muted); }
+@media (min-width: 768px) { .card { padding: 36px; } }
+.card > div { display: grid; gap: 16px; }
+.checks { display: grid; gap: 12px; }
+.checks li { display: flex; gap: 12px; }
+.checks li::before { content: "✓"; flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--orange); color: #fff; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+
+/* Випуски */
+.section-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 40px; }
+.section-head a { font-weight: 600; color: var(--muted); text-decoration: underline; text-decoration-color: var(--orange); text-underline-offset: 4px; }
+.section-head a:hover { color: #fff; }
+.episodes { display: grid; gap: 40px 24px; }
+@media (min-width: 768px) { .episodes { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .episodes { grid-template-columns: repeat(3, 1fr); } }
+.episode { display: flex; flex-direction: column; gap: 12px; }
+.yt { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; border-radius: 16px; overflow: hidden; background: #000; cursor: pointer; }
+.yt img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .85; transition: transform .7s, opacity .7s; }
+.yt:hover img { transform: scale(1.05); opacity: 1; }
+.yt .play { position: absolute; left: 50%; top: 50%; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; background: var(--orange); box-shadow: 0 12px 30px -8px rgba(0, 0, 0, .6); transition: transform .3s; }
+.yt .play::after { content: ""; position: absolute; left: 24px; top: 18px; border-style: solid; border-width: 12px 0 12px 19px; border-color: transparent transparent transparent #fff; }
+.yt:hover .play { transform: scale(1.1); }
+iframe.yt { cursor: auto; }
+.episode-meta { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--orange); }
+.episode-title { font-weight: 700; color: #fff; }
+.episode-note { font-size: 15px; color: var(--dim); }
+
+/* Підвал */
+.site-footer { padding: 40px 0; border-top: 1px solid rgba(255, 255, 255, .1); font-size: 15px; color: var(--dim); }
+.footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+.site-footer a { color: var(--muted); }
+.site-footer a:hover { color: #fff; }
+
+/* Поява під час прокрутки */
+.js .rv { opacity: 0; transform: translateY(22px); transition: opacity .7s ease var(--d, 0ms), transform .7s ease var(--d, 0ms); }
+.js .rv.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .rv { opacity: 1; transform: none; transition: none; }
+  .yt img, .yt .play { transition: none; }
+}
