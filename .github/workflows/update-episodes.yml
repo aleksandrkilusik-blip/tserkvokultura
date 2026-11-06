@@ -1,0 +1,38 @@
+name: Оновити випуски з YouTube
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"   # кожні 6 годин (UTC)
+  workflow_dispatch:          # кнопка «Run workflow» для ручного запуску
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-episodes
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Оновити блок «Останні випуски»
+        env:
+          CHANNEL_HANDLE: church_and_culture
+          CHANNEL_ID: ""        # можна вписати UC… — тоді сторінку каналу не читаємо
+          EPISODE_COUNT: "3"
+        run: python3 scripts/update_episodes.py
+
+      - name: Зберегти зміни
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "Змін немає"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Нові випуски з YouTube"
+          git push

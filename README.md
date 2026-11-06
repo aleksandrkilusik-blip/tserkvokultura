@@ -4,6 +4,7 @@
 
 ```
 404.html                сторінка «не знайдено»
+scripts/update_episodes.py  оновлення випусків з YouTube (запускає .github/workflows/update-episodes.yml)
 index.html              єдина сторінка: обкладинка, про подкаст, 3 картки, останні випуски
 assets/css/style.css    усі стилі; кольори — CSS-змінні в :root
 assets/img/hero.jpg     фото обкладинки (1920×1280)
@@ -18,25 +19,18 @@ assets/img/favicon-64.png, apple-touch-icon.png  іконки вкладки й 
 Settings → Pages → Build and deployment → Source: **Deploy from a branch** → гілка **main**, папка **/ (root)** → Save.
 Сайт: `https://aleksandrkilusik-blip.github.io/tserkvokultura/`. Усі посилання відносні, тому підшлях `/tserkvokultura/` працює.
 
-## Як додати новий випуск
+## Випуски оновлюються автоматично
 
-Випуски лежать у `<div class="episodes">` у `index.html`, **новіші зверху**.
+Блок «Останні випуски» в `index.html` (між мітками `<!-- EPISODES:START -->` і `<!-- EPISODES:END -->`) заповнює скрипт `scripts/update_episodes.py`. **Вручну цей блок не редагуйте** — наступний запуск його перезапише.
 
-1. Скопіюйте перший блок `<div class="rv episode">…</div>` і вставте його першим.
-2. Замініть ID відео (частина після `watch?v=` або `youtu.be/`) у двох місцях: `data-yt="…"` і `src="https://i.ytimg.com/vi/…/hqdefault.jpg"`.
-3. Оновіть `data-yt-title` і `aria-label` — назва випуску.
-4. На сторінці показуємо 3 останні випуски: найстаріший блок видаліть. Повний список — на YouTube-каналі.
-5. Перерахуйте `style="--d:…"` по колонках: 0ms, 120ms, 240ms.
+- `.github/workflows/update-episodes.yml` запускає скрипт кожні 6 годин.
+- Скрипт читає публічну RSS-стрічку каналу [@church_and_culture](https://www.youtube.com/@church_and_culture) (без API-ключа), пропускає Shorts і бере 3 найновіші відео: обкладинка, назва, дата.
+- Якщо є зміни — бот комітить `index.html`, і GitHub Pages сам публікує сайт.
+- Запустити одразу: вкладка **Actions** → «Оновити випуски з YouTube» → **Run workflow**.
+- Налаштування — у workflow: `EPISODE_COUNT` (скільки випусків), `CHANNEL_ID` (UC…, якщо колись не вдасться визначити канал за назвою).
+- GitHub вимикає розклад, якщо в репозиторії 60 днів немає активності. Тоді прийде лист — увімкніть workflow у вкладці Actions однією кнопкою.
 
-Під обкладинкою можна додати підпис (стилі вже є):
-
-```html
-<div>
-  <p class="episode-meta">Випуск N · <time datetime="YYYY-MM-DD">D місяця YYYY</time></p>
-  <p class="episode-title">Ім'я гостя: «Назва»</p>
-  <p class="episode-note">1–2 речення про розмову.</p>
-</div>
-```
+Перевірити скрипт локально на збереженій стрічці: `python3 scripts/update_episodes.py --feed feed.xml`.
 
 ## Кеш браузера
 
