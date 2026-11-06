@@ -8,7 +8,9 @@ index.html              єдина сторінка: обкладинка, пр�
 assets/css/style.css    усі стилі; кольори — CSS-змінні в :root
 assets/img/hero.jpg     фото обкладинки (1920×1280)
 assets/img/og-default.jpg  прев'ю для Telegram і соцмереж
-assets/img/favicon.svg  іконка вкладки
+assets/img/logo-wordmark.png  логотип-напис (білий, прозорий фон) — заголовок сторінки
+assets/img/logo-icon.png      значок «О» (білий, прозорий фон) — у шапці
+assets/img/favicon-64.png, apple-touch-icon.png  іконки вкладки й телефона
 ```
 
 ## Публікація на GitHub Pages
